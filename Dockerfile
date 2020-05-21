@@ -1,9 +1,8 @@
-# wisca/wiscanet-docker:18.04
+# jholtom/wiscanet-docker:18.04
 
 # Provides a base Ubuntu (18.04) image with latest UHD and WiscaNET installed
-
 FROM        ubuntu:18.04
-MAINTAINER  Ettus Research
+MAINTAINER  ASU Center for Wireless Information Systems and Computational Architectures (WISCA)
 
 # Last build date - this can be updated whenever there are security updates so
 # that everything is rebuilt
@@ -38,7 +37,8 @@ RUN         apt-get -y install -q \
                 dpdk \
                 libdpdk-dev \
                 libssl-dev \
-                libcrypto++-dev
+                libcrypto++-dev \
+                libtinyxml-dev
 
 RUN          rm -rf /var/lib/apt/lists/*
 
