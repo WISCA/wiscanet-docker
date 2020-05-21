@@ -9,6 +9,12 @@ ARG         UHD_TAG=v3.15.0.0
 ARG         WISCANET_TAG=HEAD
 ARG         MAKEWIDTH=25
 
+EXPOSE 22
+EXPOSE 9000
+EXPOSE 9940
+EXPOSE 9942
+EXPOSE 9943
+
 # Install security updates and required packages
 RUN         dnf -y update
 RUN         dnf -y install \
@@ -20,7 +26,9 @@ RUN         dnf -y install \
                 git \
                 python3-devel \
                 python3-pip \
-                curl
+                curl \
+                openssh-server \
+                passwd
 
 # Install UHD dependencies
 RUN         dnf -y install -q\
@@ -74,6 +82,8 @@ RUN         dnf -y install -q\
                 octave-general \
                 tinyxml-devel
 
+RUN         dnf clean all
+
 RUN          mkdir -p /usr/local/src
 RUN          git clone https://github.com/EttusResearch/uhd.git /usr/local/src/uhd
 RUN          cd /usr/local/src/uhd/ && git checkout $UHD_TAG
@@ -89,3 +99,7 @@ RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
 WORKDIR      /usr/local/src/wiscanet_source/src
 RUN          make -j $MAKEWIDTH
+
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/sbin/sshd", "-D"]
