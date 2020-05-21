@@ -101,5 +101,5 @@ WORKDIR      /usr/local/src/wiscanet_source/src
 RUN          make -j $MAKEWIDTH
 
 COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/sbin/sshd", "-D"]
+#ENTRYPOINT ["/entrypoint.sh"]
+#CMD ["/usr/sbin/sshd", "-D"]
