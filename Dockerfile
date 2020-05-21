@@ -34,7 +34,12 @@ RUN         dnf -y install \
                 dpdk \
                 dpdk-devel \
                 openssl-devel \
-                tinyxml-devel
+                tinyxml-devel \
+                octave \
+                octave-signal \
+                octave-communications \
+                octave-miscellaneous \
+                octave-general
 
 RUN          mkdir -p /usr/local/src
 RUN          git clone https://github.com/EttusResearch/uhd.git /usr/local/src/uhd
