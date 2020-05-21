@@ -24,7 +24,7 @@ RUN         dnf -y install \
 # Install UHD dependencies
 RUN         dnf -y install \
                 boost-devel \
-                libusb-devel \
+                libusbx-devel \
                 python3-mako \
                 doxygen \
                 python3-docutils \
