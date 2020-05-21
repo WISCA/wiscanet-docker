@@ -5,7 +5,7 @@ FROM        fedora:latest
 MAINTAINER  ASU Center for Wireless Information Systems and Computational Architectures (WISCA)
 
 # Some system arguments
-ARG         UHD_TAG=v3.14.0.0
+ARG         UHD_TAG=v3.15.0.0
 ARG         WISCANET_TAG=HEAD
 ARG         MAKEWIDTH=25
 
@@ -21,25 +21,58 @@ RUN         dnf -y install \
                 python3-devel \
                 python3-pip \
                 curl
+
 # Install UHD dependencies
-RUN         dnf -y install \
+RUN         dnf -y install -q\
                 boost-devel \
                 libusbx-devel \
                 python3-mako \
                 doxygen \
                 python3-docutils \
-                cmake \
                 python3-requests \
                 python3-numpy \
                 dpdk \
                 dpdk-devel \
                 openssl-devel \
-                tinyxml-devel \
+                fftw-devel \
+                cppunit-devel \
+                boost-devel \
+                numpy \
+                gsl-devel \
+                python-devel \
+                pygsl \
+                python-cheetah \
+                python-mako \
+                python-lxml \
+                libusbx-devel \
+                cmake \
+                python-docutils \
+                gtk2-engines \
+                xmlrpc-c-"*" \
+                orc-devel \
+                python-sphinx \
+                zeromq \
+                zeromq-devel \
+                python-requests \
+                doxygen \
+                zeromq-ada-devel \
+                cppzmq-devel \
+                python-zmq \
+                czmq \
+                uwsgi-logger-zeromq \
+                pygtk2 \
+                ncurses-"*" \
+                thrift-devel
+
+# Install WISCANet dependencies
+RUN         dnf -y install -q\
                 octave \
+                octave-devel \
                 octave-signal \
                 octave-communications \
                 octave-miscellaneous \
-                octave-general
+                octave-general \
+                tinyxml-devel
 
 RUN          mkdir -p /usr/local/src
 RUN          git clone https://github.com/EttusResearch/uhd.git /usr/local/src/uhd
