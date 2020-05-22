@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start SSH Server
-/usr/sbin/sshd &
+sudo /usr/sbin/sshd &
 
 # Fire up a shell to interact with
 /bin/bash
