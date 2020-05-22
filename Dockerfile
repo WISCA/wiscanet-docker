@@ -115,4 +115,9 @@ RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
 WORKDIR /home/wisca/wdemo/
 COPY entrypoint.sh /entrypoint.sh
 
+RUN cp /usr/local/src/wiscanet_source/src/build/cnode/bin/cnode /home/wisca/wdemo/run/cnode/bin/
+RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/enode /home/wisca/wdemo/run/enode/bin/
+RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/uControl /home/wisca/wdemo/run/enode/bin/
+RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat /home/wisca/wdemo/run/enode/
+
 ENTRYPOINT ["/entrypoint.sh"]
