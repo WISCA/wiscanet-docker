@@ -103,12 +103,16 @@ RUN          make -j $MAKEWIDTH
 COPY enable_ssh.sh /enable_ssh.sh
 WORKDIR /
 RUN ./enable_ssh.sh
+
+# Add WISCA User and give nopasswd sudo
 RUN useradd -ms /bin/bash wisca -G wheel && echo "wisca:wisca" | chpasswd
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
 
 USER wisca
 ENV HOME /home/wisca
 WORKDIR /home/wisca
-#ENTRYPOINT ["/entrypoint.sh"]
-#CMD ["/usr/sbin/sshd", "-D"]
+RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
+WORKDIR /home/wisca/wdemo/
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
