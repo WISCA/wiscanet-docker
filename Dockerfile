@@ -121,5 +121,7 @@ RUN cp /usr/local/src/wiscanet_source/src/build/cnode/bin/cnode /home/wisca/wdem
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/enode /home/wisca/wdemo/run/enode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/uControl /home/wisca/wdemo/run/enode/bin/
 RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat /home/wisca/wdemo/run/enode/
+RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run/enode/bin/uControl
+
 
 ENTRYPOINT ["/entrypoint.sh"]
