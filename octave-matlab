@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# -r executes statement ex. tx_sine(123123)
+# -nodisplay turns of all X
+
+# Call getopt to validate the provided input.
+cmdline_opts=""
+options=$(getopt -a -o r -l nodisplay -- "$@")
+[ $? -eq 0 ] || {
+    echo "Incorrect options provided"
+    exit 1
+}
+echo $options
+eval set -- "$options"
+while true; do
+    case "$1" in
+    -r)
+        ;;
+    --nodisplay)
+		cmdline_opts="$cmdline_opts --no-gui"
+		;;
+    --)
+        shift
+		cmdline_opts="$cmdline_opts --eval $1"
+        break
+        ;;
+    esac
+    shift
+done
+
+echo "Equivalent Octave command: octave $cmdline_opts"
+echo "Executing..."
+octave $cmdline_opts

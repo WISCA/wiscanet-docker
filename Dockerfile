@@ -104,6 +104,8 @@ COPY enable_ssh.sh /enable_ssh.sh
 WORKDIR /
 RUN ./enable_ssh.sh
 
+COPY octave-matlab /usr/bin/matlab
+
 # Add WISCA User and give nopasswd sudo
 RUN useradd -ms /bin/bash wisca -G wheel && echo "wisca:wisca" | chpasswd
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
