@@ -102,7 +102,7 @@ RUN          make -j $MAKEWIDTH
 
 COPY enable_ssh.sh /enable_ssh.sh
 WORKDIR /
-RUN enable_ssh.sh
+RUN ./enable_ssh.sh
 RUN useradd -ms /bin/bash wisca -G wheel && echo "wisca:wisca" | chpasswd
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
