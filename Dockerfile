@@ -100,6 +100,15 @@ RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
 WORKDIR      /usr/local/src/wiscanet_source/src
 RUN          make -j $MAKEWIDTH
 
-COPY entrypoint.sh /entrypoint.sh
+COPY enable_ssh.sh /enable_ssh.sh
+WORKDIR /
+RUN enable_ssh.sh
+RUN useradd -ms /bin/bash wisca -G wheel && echo "wisca:wisca" | chpasswd
+RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+
+USER wisca
+ENV HOME /home/wisca
+WORKDIR /home/wisca
 #ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["/usr/sbin/sshd", "-D"]
