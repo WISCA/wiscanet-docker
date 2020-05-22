@@ -80,7 +80,8 @@ RUN         dnf -y install -q\
                 octave-communications \
                 octave-miscellaneous \
                 octave-general \
-                tinyxml-devel
+                tinyxml-devel \
+                procps
 
 RUN         dnf clean all
 
