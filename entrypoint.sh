@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Start SSH Server
+echo "Generating SSH Host Key"
+sudo ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 echo "Starting SSHD"
 sudo /usr/sbin/sshd &
 
