@@ -1,7 +1,7 @@
 # jholtom/wiscanet-docker:latest
 
-# Provides a base Fedora Latest image with latest UHD and WiscaNET installed
-FROM        fedora:latest
+# Provides a base Fedora 32 image with latest UHD and WiscaNET installed
+FROM        fedora:32
 MAINTAINER  ASU Center for Wireless Information Systems and Computational Architectures (WISCA)
 
 # Some system arguments
