@@ -7,7 +7,7 @@ MAINTAINER  ASU Center for Wireless Information Systems and Computational Archit
 # Some system arguments
 ARG         UHD_TAG=v3.15.0.0
 ARG         WISCANET_TAG=HEAD
-ARG         MAKEWIDTH=25
+ARG         MAKEWIDTH=3
 
 EXPOSE 22
 EXPOSE 9000
