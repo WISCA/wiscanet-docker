@@ -112,8 +112,8 @@ USER wisca
 ENV HOME /home/wisca
 WORKDIR /home/wisca
 RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
+RUN cd wdemo && git pull && git checkout $WISCANET_TAG
 WORKDIR /home/wisca/wdemo/
-COPY entrypoint.sh /entrypoint.sh
 
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/bin/cnode /home/wisca/wdemo/run/cnode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/enode /home/wisca/wdemo/run/enode/bin/
@@ -122,5 +122,7 @@ RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat /home/wisca/wdemo/
 RUN cp -rf /usr/local/src/wiscanet_source/umat/mat /home/wisca/wdemo/run/usr/
 RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run/enode/bin/uControl
 
-
-ENTRYPOINT ["/entrypoint.sh"]
+USER root
+ENV HOME /root
+RUN systemctl enable sshd
+CMD [ "/sbin/init" ]
