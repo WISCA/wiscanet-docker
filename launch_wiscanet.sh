@@ -49,6 +49,3 @@ echo "Username: wisca"
 echo "Password: wisca"
 
 echo "To shutdown the network run: sudo podman stop cnode enode0 enode1"
-
-echo "Now opening terminal into CNODE"
-sudo podman exec -it cnode /bin/bash
