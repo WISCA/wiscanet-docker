@@ -97,6 +97,8 @@ RUN          uhd_images_downloader
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
 RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
+# If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
+#ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
 WORKDIR      /usr/local/src/wiscanet_source/src
 RUN          make -j $MAKEWIDTH
@@ -113,6 +115,8 @@ ENV HOME /home/wisca
 WORKDIR /home/wisca
 RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
 RUN cd wdemo && git checkout $WISCANET_TAG
+# Again, if not operating with access to gitbliss, comment priot two lines and uncomment following ADD statement
+ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
 
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/bin/cnode /home/wisca/wdemo/run/cnode/bin/
