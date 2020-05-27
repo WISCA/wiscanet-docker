@@ -31,15 +31,24 @@ CNODE_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" cnode)
 echo "IP Address of CNODE: ${CNODE_IP}"
 
 echo "Configuring WISCANET parameters"
+# Configuring CNODE iplist and node XMLs for UMAC_sin demo
 sudo podman exec cnode /bin/bash -c "echo ${ENODE0_IP} > /home/wisca/wdemo/run/usr/cfg/iplist"
 sudo podman exec cnode /bin/bash -c "echo ${ENODE1_IP} >> /home/wisca/wdemo/run/usr/cfg/iplist"
+sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node0.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.xml"
+sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node1.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.xml"
+
+# Configuring ENODE0 to talk to CNODE
+sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
+
+# Configuring ENODE1 to talk to CNODE
+sudo podman exec enode1 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
 
 echo "Login Credentials"
 echo "i.e ssh wisca@${CNODE_IP}"
 echo "Username: wisca"
 echo "Password: wisca"
 
-echo "To shutdown the network run: sudo podman rm cnode enode0 enode1"
+echo "To shutdown the network run: sudo podman stop cnode enode0 enode1"
 
 echo "Now opening terminal into CNODE"
 sudo podman exec -it cnode /bin/bash
