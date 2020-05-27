@@ -125,4 +125,5 @@ RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run
 USER root
 ENV HOME /root
 RUN systemctl enable sshd
+RUN systemctl enable systemd-timesyncd
 CMD [ "/sbin/init" ]
