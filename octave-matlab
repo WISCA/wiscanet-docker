@@ -30,4 +30,4 @@ done
 
 echo "Equivalent Octave command: octave $cmdline_opts"
 echo "Executing..."
-octave $cmdline_opts
+exec octave $cmdline_opts
