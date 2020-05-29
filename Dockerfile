@@ -116,7 +116,7 @@ WORKDIR /home/wisca
 RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
 RUN cd wdemo && git checkout $WISCANET_TAG
 # Again, if not operating with access to gitbliss, comment priot two lines and uncomment following ADD statement
-ADD wiscanet-deploy /home/wisca/wdemo
+# ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
 
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/bin/cnode /home/wisca/wdemo/run/cnode/bin/
