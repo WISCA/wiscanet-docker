@@ -97,7 +97,7 @@ RUN          make install
 RUN          uhd_images_downloader
 
 # Begin building WISCANET
-RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling"
+RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
 RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
