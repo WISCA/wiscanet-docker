@@ -10,7 +10,7 @@ RADIO1="/dev/bus/usb/${RADIOBUS[1]}"
 
 echo "Launching ENODE0 for Radio 0..."
 echo "Radio 0 located at ${RADIO0}"
-ENODE0_ID=$(sudo podman run --rm -dt --privileged --device ${RADIO0} --name enode0 localhost/jholtom/wiscanet)
+ENODE0_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO0} --name enode0 localhost/jholtom/wiscanet)
 echo "Launched with ID: ${ENODE0_ID}"
 ENODE0_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode0)
 echo "IP Address of ENODE0: ${ENODE0_IP}"
@@ -18,7 +18,7 @@ echo "IP Address of ENODE0: ${ENODE0_IP}"
 
 echo "Launching ENODE1 for Radio 1..."
 echo "Radio 1 located at ${RADIO1}"
-ENODE1_ID=$(sudo podman run --rm -dt --privileged --device ${RADIO1} --name enode1 localhost/jholtom/wiscanet)
+ENODE1_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO1} --name enode1 localhost/jholtom/wiscanet)
 echo "Launched with ID: ${ENODE1_ID}"
 ENODE1_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode1)
 echo "IP Address of ENODE1: ${ENODE1_IP}"
