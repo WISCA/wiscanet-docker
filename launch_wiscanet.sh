@@ -37,6 +37,15 @@ sudo podman exec cnode /bin/bash -c "echo ${ENODE1_IP} >> /home/wisca/wdemo/run/
 sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node0.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.xml"
 sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node1.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.xml"
 
+# Handle SSH configuration
+# Generate keys on each node
+sudo podman exec -u wisca cnode ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
+sudo podman exec -u wisca enode0 ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
+sudo podman exec -u wisca enode1 ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
+# Copy all keys to all nodes
+echo "Please log into cnode and use ssh-copy-id to distribute keys"
+echo "Coming soon this will be handled automatically..."
+
 # Configuring ENODE0 to talk to CNODE
 sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
 
