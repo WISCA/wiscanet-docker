@@ -85,6 +85,7 @@ RUN         dnf -y install -q\
 
 RUN         dnf clean all
 
+# Build UHD Driver
 RUN          mkdir -p /usr/local/src
 RUN          git clone https://github.com/EttusResearch/uhd.git /usr/local/src/uhd
 RUN          cd /usr/local/src/uhd/ && git checkout $UHD_TAG
@@ -94,6 +95,9 @@ RUN          cmake .. -DENABLE_PYTHON3=ON -DUHD_RELEASE_MODE=release -DCMAKE_INS
 RUN          make -j $MAKEWIDTH
 RUN          make install
 RUN          uhd_images_downloader
+
+# Begin building WISCANET
+RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling"
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
 RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
@@ -115,7 +119,7 @@ ENV HOME /home/wisca
 WORKDIR /home/wisca
 RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
 RUN cd wdemo && git checkout $WISCANET_TAG
-# Again, if not operating with access to gitbliss, comment priot two lines and uncomment following ADD statement
+# Again, if not operating with access to gitbliss, comment prior two lines and uncomment following ADD statement
 # ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
 
