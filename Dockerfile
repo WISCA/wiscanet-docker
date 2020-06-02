@@ -102,7 +102,7 @@ RUN          make install
 RUN          uhd_images_downloader
 
 # Add MATLAB to the system
-ADD matlab-install/MATLAB /usr/local/
+ADD matlab-install/MATLAB /usr/local/MATLAB
 ENV PATH="/usr/local/MATLAB/bin:${PATH}"
 # Enable MEX
 RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C++
