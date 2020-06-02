@@ -70,19 +70,23 @@ RUN         dnf -y install -q\
                 uwsgi-logger-zeromq \
                 pygtk2 \
                 ncurses-"*" \
-                thrift-devel
+                thrift-devel \
+                libpng12-devel \
+                freetype-devel \
+                blas-devel \
+                lapack-devel \
+                libXt
 
 # Install WISCANet dependencies
 RUN         dnf -y install -q\
-                octave \
-                octave-devel \
-                octave-signal \
-                octave-communications \
-                octave-miscellaneous \
-                octave-general \
                 tinyxml-devel \
                 procps
-
+        #                octave \
+        #        octave-devel \
+        #       octave-signal \
+        #        octave-communications \
+        #        octave-miscellaneous \
+        #        octave-general \
 RUN         dnf clean all && rm -rf /var/cache/yum
 
 # Build UHD Driver
@@ -134,4 +138,7 @@ USER root
 ENV HOME /root
 RUN systemctl enable sshd
 RUN systemctl enable systemd-timesyncd
+
+ADD matlab-install/MATLAB /usr/local/
+
 CMD [ "/sbin/init" ]

@@ -8,9 +8,13 @@ RADIOBUS=(${DEVS[@]})
 RADIO0="/dev/bus/usb/${RADIOBUS[0]}"
 RADIO1="/dev/bus/usb/${RADIOBUS[1]}"
 
+CNODE_MAC_ADDR="A8:5E:45:8E:90:53"
+ENODE0_MAC_ADDR="A8:5E:45:AA:FD:A6"
+ENODE1_MAC_ADDR = "A8:5E:45:2A:6F:91"
+
 echo "Launching ENODE0 for Radio 0..."
 echo "Radio 0 located at ${RADIO0}"
-ENODE0_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO0} --name enode0 localhost/jholtom/wiscanet)
+ENODE0_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO0} --mac-address="${ENODE0_MAC_ADDR}" --name enode0 localhost/jholtom/wiscanet)
 echo "Launched with ID: ${ENODE0_ID}"
 ENODE0_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode0)
 echo "IP Address of ENODE0: ${ENODE0_IP}"
@@ -18,14 +22,14 @@ echo "IP Address of ENODE0: ${ENODE0_IP}"
 
 echo "Launching ENODE1 for Radio 1..."
 echo "Radio 1 located at ${RADIO1}"
-ENODE1_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO1} --name enode1 localhost/jholtom/wiscanet)
+ENODE1_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO1} --mac-address="${ENODE1_MAC_ADDR}"   --name enode1 localhost/jholtom/wiscanet)
 echo "Launched with ID: ${ENODE1_ID}"
 ENODE1_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode1)
 echo "IP Address of ENODE1: ${ENODE1_IP}"
 
 
 echo "Launching CNODE..."
-CNODE_ID=$(sudo podman run --rm -dt --privileged --name cnode localhost/jholtom/wiscanet)
+CNODE_ID=$(sudo podman run --rm -dt --privileged --mac-address="${CNODE_MAC_ADDR}" --name cnode localhost/jholtom/wiscanet)
 echo "Launched with ID: ${CNODE_ID}"
 CNODE_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" cnode)
 echo "IP Address of CNODE: ${CNODE_IP}"
@@ -51,6 +55,14 @@ sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wis
 
 # Configuring ENODE1 to talk to CNODE
 sudo podman exec enode1 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
+
+# Adding MATLAB licenses to each node
+sudo podman exec cnode /bin/bash -c "mkdir -p /usr/local/MATLAB/licenses/"
+sudo podman exec enode0 /bin/bash -c "mkdir -p /usr/local/MATLAB/licenses/"
+sudo podman exec enode1 /bin/bash -c "mkdir -p /usr/local/MATLAB/licenses/"
+sudo podman cp ../licenses/cnode.lic cnode:/usr/local/MATLAB/licenses/
+sudo podman cp ../licenses/enode0.lic enode0:/usr/local/MATLAB/licenses/
+sudo podman cp ../licenses/enode1.lic enode1:/usr/local/MATLAB/licenses/
 
 echo "Login Credentials"
 echo "i.e ssh wisca@${CNODE_IP}"
