@@ -100,6 +100,10 @@ RUN          make -j $MAKEWIDTH
 RUN          make install
 RUN          uhd_images_downloader
 
+# Add MATLAB to the system
+ADD matlab-install/MATLAB /usr/local/
+ENV PATH="/usr/local/MATLAB/bin:${PATH}"
+
 # Begin building WISCANET
 RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
 WORKDIR      /
@@ -139,6 +143,5 @@ ENV HOME /root
 RUN systemctl enable sshd
 RUN systemctl enable systemd-timesyncd
 
-ADD matlab-install/MATLAB /usr/local/
 
 CMD [ "/sbin/init" ]
