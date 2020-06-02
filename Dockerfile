@@ -83,7 +83,7 @@ RUN         dnf -y install -q\
                 tinyxml-devel \
                 procps
 
-RUN         dnf clean all
+RUN         dnf clean all && rm -rf /var/cache/yum
 
 # Build UHD Driver
 RUN          mkdir -p /usr/local/src
