@@ -64,6 +64,10 @@ sudo podman cp ../licenses/cnode.lic cnode:/usr/local/MATLAB/licenses/
 sudo podman cp ../licenses/enode0.lic enode0:/usr/local/MATLAB/licenses/
 sudo podman cp ../licenses/enode1.lic enode1:/usr/local/MATLAB/licenses/
 
+sudo podman exec cnode /bin/bash -c "echo 'export PATH="/usr/local/MATLAB/bin:$PATH"' >> /home/wisca/.bash_profile"
+sudo podman exec enode0 /bin/bash -c "echo 'export PATH="/usr/local/MATLAB/bin:$PATH"' >> /home/wisca/.bash_profile"
+sudo podman exec enode1 /bin/bash -c "echo 'export PATH="/usr/local/MATLAB/bin:$PATH"' >> /home/wisca/.bash_profile"
+
 echo "Login Credentials"
 echo "i.e ssh wisca@${CNODE_IP}"
 echo "Username: wisca"
