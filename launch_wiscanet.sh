@@ -10,7 +10,7 @@ RADIO1="/dev/bus/usb/${RADIOBUS[1]}"
 
 CNODE_MAC_ADDR="A8:5E:45:8E:90:53"
 ENODE0_MAC_ADDR="A8:5E:45:AA:FD:A6"
-ENODE1_MAC_ADDR = "A8:5E:45:2A:6F:91"
+ENODE1_MAC_ADDR="A8:5E:45:2A:6F:91"
 
 echo "Launching ENODE0 for Radio 0..."
 echo "Radio 0 located at ${RADIO0}"

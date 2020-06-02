@@ -118,8 +118,8 @@ RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
 WORKDIR      /usr/local/src/wiscanet_source/src
 RUN          make -j $MAKEWIDTH
 
-COPY octave-matlab /usr/bin/matlab
-RUN chmod +x /usr/bin/matlab
+#COPY octave-matlab /usr/bin/matlab
+#RUN chmod +x /usr/bin/matlab
 
 # Add WISCA User and give nopasswd sudo
 RUN useradd -ms /bin/bash wisca -G wheel && echo "wisca:wisca" | chpasswd
@@ -144,7 +144,6 @@ RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run
 USER root
 ENV HOME /root
 RUN systemctl enable sshd
-RUN systemctl enable systemd-timesyncd
-
+#RUN systemctl enable systemd-timesyncd # This is superseded by timedated, which is just there, doesn't need bonus enablement
 
 CMD [ "/sbin/init" ]
