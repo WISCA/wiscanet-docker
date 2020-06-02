@@ -80,7 +80,8 @@ RUN         dnf -y install -q\
 # Install WISCANet dependencies
 RUN         dnf -y install -q\
                 tinyxml-devel \
-                procps
+                procps \
+                which
         #                octave \
         #        octave-devel \
         #       octave-signal \
@@ -103,6 +104,8 @@ RUN          uhd_images_downloader
 # Add MATLAB to the system
 ADD matlab-install/MATLAB /usr/local/
 ENV PATH="/usr/local/MATLAB/bin:${PATH}"
+# Enable MEX
+RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C++
 
 # Begin building WISCANET
 RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
