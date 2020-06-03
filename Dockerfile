@@ -111,12 +111,12 @@ RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C
 RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
-RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
+RUN          cd /usr/local/src/wiscanet_source && git checkout develop
 # If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
 #ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
-WORKDIR      /usr/local/src/wiscanet_source/src
-RUN          make -j $MAKEWIDTH
+WORKDIR      /usr/local/src/wiscanet_source/src/build
+RUN          cmake ../ && make
 
 #COPY octave-matlab /usr/bin/matlab
 #RUN chmod +x /usr/bin/matlab
@@ -134,9 +134,9 @@ RUN cd wdemo && git checkout $WISCANET_TAG
 # ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
 
-RUN cp /usr/local/src/wiscanet_source/src/build/cnode/bin/cnode /home/wisca/wdemo/run/cnode/bin/
-RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/enode /home/wisca/wdemo/run/enode/bin/
-RUN cp /usr/local/src/wiscanet_source/src/build/enode/bin/uControl /home/wisca/wdemo/run/enode/bin/
+RUN cp /usr/local/src/wiscanet_source/src/build/cnode/cnode /home/wisca/wdemo/run/cnode/bin/
+RUN cp /usr/local/src/wiscanet_source/src/build/enode/enode /home/wisca/wdemo/run/enode/bin/
+RUN cp /usr/local/src/wiscanet_source/src/build/enode/uControl /home/wisca/wdemo/run/enode/bin/
 RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat /home/wisca/wdemo/run/enode/
 RUN cp -rf /usr/local/src/wiscanet_source/umat/mat /home/wisca/wdemo/run/usr/
 RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run/enode/bin/uControl
