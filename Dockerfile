@@ -111,7 +111,7 @@ RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C
 RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
-RUN          cd /usr/local/src/wiscanet_source && git checkout develop
+RUN          cd /usr/local/src/wiscanet_source && git fetch && git checkout develop
 # If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
 #ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
