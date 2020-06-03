@@ -47,8 +47,8 @@ sudo podman exec -u wisca cnode ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
 sudo podman exec -u wisca enode0 ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
 sudo podman exec -u wisca enode1 ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
 # Copy all keys to all nodes
-echo "Please log into cnode and use ssh-copy-id to distribute keys"
-echo "Coming soon this will be handled automatically..."
+sudo podman exec -u wisca cnode /bin/bash -c "echo 'y\nwisca\n' | ssh-copy-id -f ${ENODE0_IP}"
+sudo podman exec -u wisca cnode /bin/bash -c "echo 'y\nwisca\n' | ssh-copy-id -f ${ENODE1_IP}"
 
 # Configuring ENODE0 to talk to CNODE
 sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"

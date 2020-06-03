@@ -137,7 +137,8 @@ WORKDIR /home/wisca/wdemo/
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/cnode /home/wisca/wdemo/run/cnode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/enode /home/wisca/wdemo/run/enode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/uControl /home/wisca/wdemo/run/enode/bin/
-RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat /home/wisca/wdemo/run/enode/
+RUN mkdir -p /home/wisca/wdemo/run/enode/mat/lib
+RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat/* /home/wisca/wdemo/run/enode/mat/lib/
 RUN cp -rf /usr/local/src/wiscanet_source/umat/mat /home/wisca/wdemo/run/usr/
 RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run/enode/bin/uControl
 
