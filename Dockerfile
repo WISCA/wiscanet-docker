@@ -81,13 +81,8 @@ RUN         dnf -y install -q\
 RUN         dnf -y install -q\
                 tinyxml-devel \
                 procps \
-                which
-        #                octave \
-        #        octave-devel \
-        #       octave-signal \
-        #        octave-communications \
-        #        octave-miscellaneous \
-        #        octave-general \
+                which \
+                nss
 RUN         dnf clean all && rm -rf /var/cache/yum
 
 # Build UHD Driver
