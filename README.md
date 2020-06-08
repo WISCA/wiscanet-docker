@@ -15,6 +15,7 @@
 ## Sharing files with containers and interacting
 - `sudo podman volume create --opt type=none --opt o=bind --opt device=${YOUR_PATH_HERE}/wdemo cnode_wdemo`
 - don't forget to `mkdir -p ${YOUR_PATH_HERE}/wdemo` before running `./launch_wiscanet.sh`
+- This volume may need to be recreated with new versions of the container (aka software, so that the appropriate files get copied in on load up)
 
 ## B200/B210 Network
 
