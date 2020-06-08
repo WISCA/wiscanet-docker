@@ -17,7 +17,6 @@ EXPOSE 9943
 
 # Install security updates and required packages
 RUN         dnf -y update
-RUN         dnf -y upgrade
 RUN         dnf -y install \
                 make \
                 automake \
@@ -29,10 +28,7 @@ RUN         dnf -y install \
                 python3-pip \
                 curl \
                 openssh-server \
-                passwd
-
-# Install UHD dependencies
-RUN         dnf -y install -q\
+                passwd \
                 boost-devel \
                 libusbx-devel \
                 python3-mako \
@@ -76,10 +72,7 @@ RUN         dnf -y install -q\
                 freetype-devel \
                 blas-devel \
                 lapack-devel \
-                libXt
-
-# Install WISCANet dependencies
-RUN         dnf -y install -q\
+                libXt \
                 tinyxml-devel \
                 procps \
                 which \
@@ -87,6 +80,7 @@ RUN         dnf -y install -q\
                 libX11-xcb \
                 libXtst \
                 alsa-lib
+
 RUN         dnf clean all && rm -rf /var/cache/yum
 
 # Build UHD Driver
