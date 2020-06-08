@@ -29,7 +29,7 @@ echo "IP Address of ENODE1: ${ENODE1_IP}"
 
 
 echo "Launching CNODE..."
-CNODE_ID=$(sudo podman run --rm -dt --privileged --mac-address="${CNODE_MAC_ADDR}" --name cnode localhost/jholtom/wiscanet)
+CNODE_ID=$(sudo podman run --rm -dt --privileged --mac-address="${CNODE_MAC_ADDR}" -v cnode_wdemo:/home/wisca/wdemo --name cnode localhost/jholtom/wiscanet)
 echo "Launched with ID: ${CNODE_ID}"
 CNODE_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" cnode)
 echo "IP Address of CNODE: ${CNODE_IP}"

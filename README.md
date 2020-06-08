@@ -12,6 +12,10 @@
 - Uses UHD Dockerfile concepts from Ettus Research
   - https://github.com/EttusResearch/ettus-docker 
 
+## Sharing files with containers and interacting
+- `sudo podman volume create --opt type=none --opt o=bind --opt device=${YOUR_PATH_HERE}/wdemo cnode_wdemo`
+- don't forget to `mkdir -p ${YOUR_PATH_HERE}/wdemo` before running `./launch_wiscanet.sh`
+
 ## B200/B210 Network
 
 - To launch a small WISCANet network with 2 B210's attached run `./launch_wiscanet.sh`
