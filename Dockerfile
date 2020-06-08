@@ -17,6 +17,7 @@ EXPOSE 9943
 
 # Install security updates and required packages
 RUN         dnf -y update
+RUN         dnf -y upgrade
 RUN         dnf -y install \
                 make \
                 automake \
@@ -82,7 +83,10 @@ RUN         dnf -y install -q\
                 tinyxml-devel \
                 procps \
                 which \
-                nss
+                nss \
+                libX11-xcb \
+                libXtst \
+                alsa-lib
 RUN         dnf clean all && rm -rf /var/cache/yum
 
 # Build UHD Driver
@@ -101,6 +105,8 @@ ADD matlab-install/MATLAB /usr/local/MATLAB
 ENV PATH="/usr/local/MATLAB/bin:${PATH}"
 # Enable MEX
 RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C++
+# Remove broken libraries because MATLAB does some stupid interposing
+RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1.1
 
 # Begin building WISCANET
 RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
@@ -128,7 +134,7 @@ RUN cd wdemo && git checkout $WISCANET_TAG
 # Again, if not operating with access to gitbliss, comment prior two lines and uncomment following ADD statement
 # ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
-
+RUN mkdir -p /home/wisca/Data
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/cnode /home/wisca/wdemo/run/cnode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/enode /home/wisca/wdemo/run/enode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/uControl /home/wisca/wdemo/run/enode/bin/
