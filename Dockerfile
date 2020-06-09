@@ -103,7 +103,7 @@ RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C
 RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1.1
 
 # Begin building WISCANET
-RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 1"
+RUN          echo "Test flag to trigger docker rebuild of WISCA Tooling 2"
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
 RUN          cd /usr/local/src/wiscanet_source && git fetch && git checkout develop
