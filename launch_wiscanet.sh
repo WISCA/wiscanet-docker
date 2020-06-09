@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "Configuring host accessible volume..."
+echo "Note: This volume WILL be DESTROYED and recreated at every startup"
+sudo podman volume rm cnode_wdemo
+mkdir -p ${HOME}/wdemo
+sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
+
 echo "Determining available B210's..."
 # 2500:0020 is the device ID for a B200/B210 series radio connected over USB
 # This assumes there will only be 2 B210's attached, but could be modified to support arbitrary numbers
