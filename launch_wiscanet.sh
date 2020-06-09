@@ -3,6 +3,7 @@
 echo "Configuring host accessible volume..."
 echo "Note: This volume WILL be DESTROYED and recreated at every startup"
 sudo podman volume rm cnode_wdemo
+rm -rfI ${HOME}/wdemo
 mkdir -p ${HOME}/wdemo
 sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
 
