@@ -17,6 +17,10 @@
 - don't forget to `mkdir -p ${YOUR_PATH_HERE}/wdemo` before running `./launch_wiscanet.sh`
 - This volume may need to be recreated with new versions of the container (aka software, so that the appropriate files get copied in on load up)
 
+## Licensing
+- Place a `cnode.lic`, `enode0.lic`, `enode1.lic` file containg a valid matlab license (can point to license server) in a folder called `licenses` next to the `wiscanet-docker` folder.
+- The `launch_wiscanet.sh` script looks for this folder at `../licenses/` from wherever it is run
+
 ## B200/B210 Network
 
 - To launch a small WISCANet network with 2 B210's attached run `./launch_wiscanet.sh`
