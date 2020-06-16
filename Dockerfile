@@ -105,7 +105,6 @@ RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MAT
 # Begin building WISCANET
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
-RUN          cd /usr/local/src/wiscanet_source && git fetch && git checkout develop
 # If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
 #ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
