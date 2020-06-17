@@ -8,7 +8,7 @@ MAINTAINER  ASU Center for Wireless Information Systems and Computational Archit
 ARG         UHD_TAG=v3.15.0.0
 ARG         WISCANET_TAG=master
 ARG         MAKEWIDTH=3
-ARG			WISCA_ORG=AFELC-Collaboration
+ARG			WISCA_ORG=jholtom
 
 EXPOSE 22
 EXPOSE 9000

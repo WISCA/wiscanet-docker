@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-- Run `sudo docker build wiscanet-docker` or `sudo podman build wiscanet-docker` on this directory (JBH typically uses `sudo podman build --rm -t jholtom/wiscanet wiscanet-docker`)
+- Run `sudo docker build wiscanet-docker` or `sudo podman build wiscanet-docker` on this directory (JBH typically uses `sudo podman build --rm -t wisca/wiscanet wiscanet-docker`)
 - This container expects you have the ability to run `systemd` inside a docker container, as it handles launching sshd and provides a *proper* (i.e. not bash or some other pale alternative) PID 1 for the container
   - This can be achieved out of the box by using `podman` or with proper configuration of `docker`
      - For `podman` the only magic is `sudo setsebool -P container_manage_cgroup true`

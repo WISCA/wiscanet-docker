@@ -21,7 +21,7 @@ ENODE1_MAC_ADDR="A8:5E:45:2A:6F:91"
 
 echo "Launching ENODE0 for Radio 0..."
 echo "Radio 0 located at ${RADIO0}"
-ENODE0_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO0} --mac-address="${ENODE0_MAC_ADDR}" --name enode0 localhost/jholtom/wiscanet)
+ENODE0_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO0} --mac-address="${ENODE0_MAC_ADDR}" --name enode0 localhost/wisca/wiscanet)
 echo "Launched with ID: ${ENODE0_ID}"
 ENODE0_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode0)
 echo "IP Address of ENODE0: ${ENODE0_IP}"
@@ -29,14 +29,14 @@ echo "IP Address of ENODE0: ${ENODE0_IP}"
 
 echo "Launching ENODE1 for Radio 1..."
 echo "Radio 1 located at ${RADIO1}"
-ENODE1_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO1} --mac-address="${ENODE1_MAC_ADDR}"   --name enode1 localhost/jholtom/wiscanet)
+ENODE1_ID=$(sudo podman run --rm -dt --cap-add=sys_nice --device ${RADIO1} --mac-address="${ENODE1_MAC_ADDR}"   --name enode1 localhost/wisca/wiscanet)
 echo "Launched with ID: ${ENODE1_ID}"
 ENODE1_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode1)
 echo "IP Address of ENODE1: ${ENODE1_IP}"
 
 
 echo "Launching CNODE..."
-CNODE_ID=$(sudo podman run --rm -dt --privileged --mac-address="${CNODE_MAC_ADDR}" -v cnode_wdemo:/home/wisca/wdemo --name cnode localhost/jholtom/wiscanet)
+CNODE_ID=$(sudo podman run --rm -dt --privileged --mac-address="${CNODE_MAC_ADDR}" -v cnode_wdemo:/home/wisca/wdemo --name cnode localhost/wisca/wiscanet)
 echo "Launched with ID: ${CNODE_ID}"
 CNODE_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" cnode)
 echo "IP Address of CNODE: ${CNODE_IP}"
