@@ -133,7 +133,6 @@ RUN cp /usr/local/src/wiscanet_source/src/build/enode/enode /home/wisca/wdemo/ru
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/uControl /home/wisca/wdemo/run/enode/bin/
 RUN mkdir -p /home/wisca/wdemo/run/enode/mat/lib
 RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat/* /home/wisca/wdemo/run/enode/mat/lib/
-RUN cp -rf /usr/local/src/wiscanet_source/umat/mat /home/wisca/wdemo/run/usr/
 RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run/enode/bin/uControl
 
 USER root
