@@ -1,4 +1,4 @@
-# jholtom/wiscanet-docker:latest
+# wisca/wiscanet-docker:latest
 
 # Provides a base Fedora 32 image with latest UHD and WiscaNET installed
 FROM        registry.fedoraproject.org/fedora:latest
@@ -6,8 +6,9 @@ MAINTAINER  ASU Center for Wireless Information Systems and Computational Archit
 
 # Some system arguments
 ARG         UHD_TAG=v3.15.0.0
-ARG         WISCANET_TAG=HEAD
+ARG         WISCANET_TAG=master
 ARG         MAKEWIDTH=3
+ARG			WISCA_ORG=AFELC-Collaboration
 
 EXPOSE 22
 EXPOSE 9000
@@ -104,7 +105,7 @@ RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MAT
 
 # Begin building WISCANET
 WORKDIR      /
-RUN          git clone https://gitbliss.asu.edu/jholtom/wiscanet_source /usr/local/src/wiscanet_source
+RUN          git clone https://gitbliss.asu.edu/$WISCA_ORG/wiscanet_source /usr/local/src/wiscanet_source
 # If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
 #ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
@@ -121,7 +122,7 @@ RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER wisca
 ENV HOME /home/wisca
 WORKDIR /home/wisca
-RUN git clone https://gitbliss.asu.edu/jholtom/wiscanet-deploy wdemo
+RUN git clone https://gitbliss.asu.edu/$WISCA_ORG/wiscanet-deploy wdemo
 RUN cd wdemo && git checkout $WISCANET_TAG
 # Again, if not operating with access to gitbliss, comment prior two lines and uncomment following ADD statement
 # ADD wiscanet-deploy /home/wisca/wdemo
