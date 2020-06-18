@@ -42,8 +42,8 @@ sudo podman exec cnode /bin/bash -c "echo ${ENODE0_IP} > /home/wisca/wdemo/run/u
 sudo podman exec cnode /bin/bash -c "echo ${ENODE1_IP} >> /home/wisca/wdemo/run/usr/cfg/iplist"
 sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node0.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.xml"
 sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node1.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.xml"
-sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO0}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_node0.xml"
-sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO1}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_node1.xml"
+sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO0}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.xml"
+sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO1}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.xml"
 
 # Handle SSH configuration
 # Generate keys on each node
