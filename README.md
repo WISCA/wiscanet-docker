@@ -31,8 +31,13 @@
   - cnode: `cd wdemo/run/cnode/bin && ./cnode`
   - enode{0,1}: `cd wdemo/run/enode/bin && ./enode`
 
-### Deprecated
+## Container Networking Convenience
 
-- Currently uses Octave instead...
-- Could potentially utilize MATLAB Dockerfile concepts from MathWorks
-  - https://github.com/mathworks-ref-arch/matlab-dockerfile
+- You may consider adding this snippet to your `/etc/cni/net.d/87-podman-bridge.conflist` file to enable DNS for the default network, substituting `example.com` for your local domain name
+
+    ```
+    {
+    "type": "dnsname",
+    "domainName": "example.com"
+    }
+    ```

@@ -53,9 +53,24 @@ sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_
 sudo podman exec -u wisca cnode ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
 sudo podman exec -u wisca enode0 ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
 sudo podman exec -u wisca enode1 ssh-keygen -f /home/wisca/.ssh/id_rsa -q -N ''
+
 # Copy all keys to all nodes
-echo "Remember to copy keys to ${ENODE0_IP} and ${ENODE1_IP} before running WISCANET"
-echo "You can do this with ssh-copy-id ${ENODE0_IP} for example"
+mkdir -p keys
+sudo podman cp cnode:/home/wisca/.ssh/id_rsa.pub ./keys/cnode.pub
+sudo podman cp enode0:/home/wisca/.ssh/id_rsa.pub ./keys/enode0.pub
+sudo podman cp enode1:/home/wisca/.ssh/id_rsa.pub ./keys/enode1.pub
+cat ./keys/cnode.pub > ./keys/authorized_keys
+cat ./keys/enode0.pub >> ./keys/authorized_keys
+cat ./keys/enode1.pub >> ./keys/authorized_keys
+sudo podman cp ./keys/authorized_keys cnode:/home/wisca/.ssh/authorized_keys
+sudo podman cp ./keys/authorized_keys enode0:/home/wisca/.ssh/authorized_keys
+sudo podman cp ./keys/authorized_keys enode1:/home/wisca/.ssh/authorized_keys
+sudo podman exec -u wisca cnode /bin/bash -c "ssh-keyscan ${CNODE_IP} ${ENODE0_IP} ${ENODE1_IP} > /home/wisca/.ssh/known_hosts"
+sudo podman exec -u wisca cnode /bin/bash -c "chown -R wisca:wisca /home/wisca/.ssh; chmod 700 /home/wisca/.ssh; chmod 640 /home/wisca/.ssh/authorized_keys"
+sudo podman exec -u wisca enode0 /bin/bash -c "chown -R wisca:wisca /home/wisca/.ssh; chmod 700 /home/wisca/.ssh; chmod 640 /home/wisca/.ssh/authorized_keys"
+sudo podman exec -u wisca enode1 /bin/bash -c "chown -R wisca:wisca /home/wisca/.ssh; chmod 700 /home/wisca/.ssh; chmod 640 /home/wisca/.ssh/authorized_keys"
+# Removing local keys directory
+rm -rf keys
 
 # Configuring ENODE0 to talk to CNODE
 sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
