@@ -8,7 +8,7 @@ mkdir -p ${HOME}/wdemo
 sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
 
 # Specify Radio Device Strings eg. addr=1.2.3.4 here
-RADIO0="serial=30F411A"
+RADIO0="addr=192.168.10.7"
 RADIO1="serial=30F419C"
 
 # Specify Node MAC Addresses for MATLAB

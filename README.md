@@ -9,9 +9,6 @@
      - `docker` the magic can be found with a google search, all test systems have used `podman`
 - There is an expectation of rootfull networking (where each container gets its own network interface [and therefore IP] within a network namespace)
 
-- Uses UHD Dockerfile concepts from Ettus Research
-  - https://github.com/EttusResearch/ettus-docker 
-
 ## Sharing files with containers and interacting
 
 - A folder `~/wdemo` is bound into the current users (aka your) home directory from the cnode.
@@ -45,6 +42,10 @@
   - cnode: `cd wdemo/run/cnode/bin && ./cnode`
   - enode{0,1}: `cd wdemo/run/enode/bin && ./enode`
 
+## MATLAB
+
+- To add MATLAB to the container, place a complete Linux MATLAB installation at `matlab-install/MATLAB`.  Do not place it in any versioned folder.  The Dockerfile and other components are written without versioning, to avoid extra changes when upgrading, or otherwise changing MATLAB versions.
+
 ## Container Networking Convenience
 
 - You may consider adding this snippet to your `/etc/cni/net.d/87-podman-bridge.conflist` file to enable DNS for the default network, substituting `example.com` for your local domain name
@@ -54,4 +55,11 @@
     "type": "dnsname",
     "domainName": "example.com"
     }
-    ```
+  ```
+
+### References
+
+- Uses UHD Dockerfile from Ettus Research
+  - https://github.com/EttusResearch/ettus-docker
+- Uses MATLAB (mathworks.com)
+- WISCANET 2017 paper
