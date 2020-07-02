@@ -8,7 +8,7 @@ mkdir -p ${HOME}/wdemo
 sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
 
 # Specify Radio Device Strings eg. addr=1.2.3.4 here
-RADIO0="addr=192.168.10.7"
+RADIO0="addr=192.168.10.2"
 RADIO1="serial=30F419C"
 
 # Specify Node MAC Addresses for MATLAB
@@ -18,14 +18,14 @@ ENODE1_MAC_ADDR="A8:5E:45:2A:6F:91"
 
 echo "Launching ENODE0 for Radio 0..."
 echo "Radio 0 located at ${RADIO0}"
-ENODE0_ID=$(sudo podman run --rm -dt --privileged --cap-add=sys_nice --mac-address="${ENODE0_MAC_ADDR}" --name enode0 localhost/wisca/wiscanet)
+ENODE0_ID=$(sudo podman run --rm -dt --privileged --mac-address="${ENODE0_MAC_ADDR}" --name enode0 localhost/wisca/wiscanet)
 echo "Launched with ID: ${ENODE0_ID}"
 ENODE0_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode0)
 echo "IP Address of ENODE0: ${ENODE0_IP}"
 
 echo "Launching ENODE1 for Radio 1..."
 echo "Radio 1 located at ${RADIO1}"
-ENODE1_ID=$(sudo podman run --rm -dt --privileged --cap-add=sys_nice --mac-address="${ENODE1_MAC_ADDR}"   --name enode1 localhost/wisca/wiscanet)
+ENODE1_ID=$(sudo podman run --rm -dt --privileged --mac-address="${ENODE1_MAC_ADDR}"   --name enode1 localhost/wisca/wiscanet)
 echo "Launched with ID: ${ENODE1_ID}"
 ENODE1_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" enode1)
 echo "IP Address of ENODE1: ${ENODE1_IP}"
