@@ -9,7 +9,7 @@ sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdem
 
 # Specify Radio Device Strings eg. addr=1.2.3.4 here
 RADIO0="addr=192.168.10.2"
-RADIO1="serial=30F419C"
+RADIO1="addr=192.168.10.7"
 
 # Specify Node MAC Addresses for MATLAB
 CNODE_MAC_ADDR="A8:5E:45:8E:90:53"

@@ -112,9 +112,6 @@ RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
 WORKDIR      /usr/local/src/wiscanet_source/src/build
 RUN          cmake ../ && make
 
-#COPY octave-matlab /usr/bin/matlab
-#RUN chmod +x /usr/bin/matlab
-
 # Add WISCA User and give nopasswd sudo
 RUN useradd -ms /bin/bash wisca -G wheel && echo "wisca:wisca" | chpasswd
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
