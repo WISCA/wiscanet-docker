@@ -80,7 +80,8 @@ RUN         dnf -y install \
                 nss \
                 libX11-xcb \
                 libXtst \
-                alsa-lib
+                alsa-lib \
+                nfs-utils
 
 RUN         dnf clean all && rm -rf /var/cache/yum
 
@@ -124,7 +125,7 @@ RUN cd wdemo && git checkout $WISCANET_TAG
 # Again, if not operating with access to gitbliss, comment prior two lines and uncomment following ADD statement
 # ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
-RUN mkdir -p /home/wisca/Data
+RUN mkdir -p /home/wisca/wdemo/data
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/cnode /home/wisca/wdemo/run/cnode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/enode /home/wisca/wdemo/run/enode/bin/
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/uControl /home/wisca/wdemo/run/enode/bin/

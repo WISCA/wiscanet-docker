@@ -8,8 +8,8 @@ mkdir -p ${HOME}/wdemo
 sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
 
 # Specify Radio Device Strings eg. addr=1.2.3.4 here
-RADIO0="addr=192.168.10.2"
-RADIO1="addr=192.168.10.7"
+RADIO0="addr=192.168.10.7,dboard_clock_rate=10e6,mode_n=integer" # Example for B2xx: serial=30F419C or type=b200 or product=B210
+RADIO1="addr=192.168.10.2,dboard_clock_rate=10e6,mode_n=integer" # Example for X310 or other networked.  Can also included mode_n=integer or dboard_clock_rate=10e6
 
 # Specify Node MAC Addresses for MATLAB
 CNODE_MAC_ADDR="A8:5E:45:8E:90:53"
@@ -86,6 +86,12 @@ sudo podman cp ../licenses/enode1.lic enode1:/usr/local/MATLAB/licenses/
 sudo podman exec cnode /bin/bash -c "echo 'export PATH="/usr/local/MATLAB/bin:$PATH"' >> /home/wisca/.bash_profile"
 sudo podman exec enode0 /bin/bash -c "echo 'export PATH="/usr/local/MATLAB/bin:$PATH"' >> /home/wisca/.bash_profile"
 sudo podman exec enode1 /bin/bash -c "echo 'export PATH="/usr/local/MATLAB/bin:$PATH"' >> /home/wisca/.bash_profile"
+
+# Set up NFS exports
+sudo podman exec cnode /bin/bash -c "echo '/home/wisca/wdemo/data *(rw,no_root_squash)' >> /etc/exports"
+sudo podman exec cnode /bin/bash -c "systemctl enable --now rpcbind nfs-server"
+sudo podman exec enode0 /bin/bash -c "sudo mount -t nfs -o vers=3 ${CNODE_IP}:/home/wisca/wdemo/data /home/wisca/wdemo/data"
+sudo podman exec enode1 /bin/bash -c "sudo mount -t nfs -o vers=3 ${CNODE_IP}:/home/wisca/wdemo/data /home/wisca/wdemo/data"
 
 echo "Login Credentials"
 echo "i.e ssh wisca@${CNODE_IP}"
