@@ -8,8 +8,8 @@ mkdir -p ${HOME}/wdemo
 sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
 
 # Specify Radio Device Strings eg. addr=1.2.3.4 here
-RADIO0="addr=192.168.10.7,dboard_clock_rate=10e6,mode_n=integer" # Example for B2xx: serial=30F419C or type=b200 or product=B210
-RADIO1="addr=192.168.10.2,dboard_clock_rate=10e6,mode_n=integer" # Example for X310 or other networked.  Can also included mode_n=integer or dboard_clock_rate=10e6
+RADIO0="addr=192.168.10.7,dboard_clock_rate=20e6,mode_n=integer" # Example for B2xx: serial=30F419C or type=b200 or product=B210
+RADIO1="addr=192.168.10.2,dboard_clock_rate=20e6,mode_n=integer" # Example for X310 or other networked.  Can also included mode_n=integer or dboard_clock_rate=20e6
 
 # Specify Node MAC Addresses for MATLAB
 CNODE_MAC_ADDR="A8:5E:45:8E:90:53"
@@ -37,6 +37,7 @@ CNODE_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" cnode)
 echo "IP Address of CNODE: ${CNODE_IP}"
 
 echo "Configuring WISCANET parameters"
+
 # Configuring CNODE iplist and node XMLs for UMAC_sin demo
 sudo podman exec cnode /bin/bash -c "echo ${ENODE0_IP} > /home/wisca/wdemo/run/usr/cfg/iplist"
 sudo podman exec cnode /bin/bash -c "echo ${ENODE1_IP} >> /home/wisca/wdemo/run/usr/cfg/iplist"
