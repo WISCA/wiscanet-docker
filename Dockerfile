@@ -1,7 +1,7 @@
 # wisca/wiscanet-docker:latest
 
 # Provides a base Fedora 32 image with latest UHD and WiscaNET installed
-FROM        registry.fedoraproject.org/fedora:latest
+FROM        registry.fedoraproject.org/fedora:31
 MAINTAINER  ASU Center for Wireless Information Systems and Computational Architectures (WISCA)
 
 # Some system arguments
