@@ -74,14 +74,14 @@ RUN         dnf -y install \
                 blas-devel \
                 lapack-devel \
                 libXt \
-                tinyxml-devel \
                 procps \
                 which \
                 nss \
                 libX11-xcb \
                 libXtst \
                 alsa-lib \
-                nfs-utils
+                nfs-utils \
+                yaml-cpp-devel
 
 RUN         dnf clean all && rm -rf /var/cache/yum
 

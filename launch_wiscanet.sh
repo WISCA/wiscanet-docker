@@ -1,15 +1,18 @@
 #!/bin/bash
 
 echo "Configuring host accessible volume..."
-echo "Note: This volume WILL be DESTROYED and recreated at every startup"
-sudo podman volume rm cnode_wdemo
-rm -rfI ${HOME}/wdemo
-mkdir -p ${HOME}/wdemo
-sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
+#echo "Note: This volume WILL be DESTROYED and recreated at every startup"
+#sudo podman volume rm cnode_wdemo
+#rm -rfI ${HOME}/wdemo
+#mkdir -p ${HOME}/wdemo
+#sudo podman volume create --opt type=none --opt o=bind --opt device=${HOME}/wdemo cnode_wdemo
 
 # Specify Radio Device Strings eg. addr=1.2.3.4 here
-RADIO0="addr=192.168.10.7,dboard_clock_rate=20e6,mode_n=integer" # Example for B2xx: serial=30F419C or type=b200 or product=B210
-RADIO1="addr=192.168.10.2,dboard_clock_rate=20e6,mode_n=integer" # Example for X310 or other networked.  Can also included mode_n=integer or dboard_clock_rate=20e6
+#RADIO0="addr=192.168.10.7,dboard_clock_rate=20e6,mode_n=integer" # Example for B2xx: serial=30F419C or type=b200 or product=B210
+#RADIO1="addr=192.168.10.2,dboard_clock_rate=20e6,mode_n=integer" # Example for X310 or other networked.  Can also included mode_n=integer or dboard_clock_rate=20e6
+
+RADIO0="serial=30F419C"
+RADIO1="serial=30F411A"
 
 # Specify Node MAC Addresses for MATLAB
 CNODE_MAC_ADDR="A8:5E:45:8E:90:53"
@@ -38,13 +41,13 @@ echo "IP Address of CNODE: ${CNODE_IP}"
 
 echo "Configuring WISCANET parameters"
 
-# Configuring CNODE iplist and node XMLs for UMAC_sin demo
+# Configuring CNODE iplist and node ymls for UMAC_sin demo
 sudo podman exec cnode /bin/bash -c "echo ${ENODE0_IP} > /home/wisca/wdemo/run/usr/cfg/iplist"
 sudo podman exec cnode /bin/bash -c "echo ${ENODE1_IP} >> /home/wisca/wdemo/run/usr/cfg/iplist"
-sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node0.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.xml"
-sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node1.xml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.xml"
-sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO0}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.xml"
-sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO1}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.xml"
+sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node0.yml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.yml"
+sudo podman exec cnode /bin/bash -c "mv /home/wisca/wdemo/run/usr/cfg/usrconfig_node1.yml /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.yml"
+sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO0}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE0_IP}.yml"
+sudo podman exec cnode /bin/bash -c "sed -i 's/replace_me/${RADIO1}/' /home/wisca/wdemo/run/usr/cfg/usrconfig_${ENODE1_IP}.yml"
 
 # Handle SSH configuration
 # Generate keys on each node
@@ -71,10 +74,10 @@ sudo podman exec -u wisca enode1 /bin/bash -c "chown -R wisca:wisca /home/wisca/
 rm -rf keys
 
 # Configuring ENODE0 to talk to CNODE
-sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
+sudo podman exec enode0 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.yml"
 
 # Configuring ENODE1 to talk to CNODE
-sudo podman exec enode1 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.xml"
+sudo podman exec enode1 /bin/bash -c "sed -i 's/cnode_ip/${CNODE_IP}/' /home/wisca/wdemo/run/enode/bin/sysconfig.yml"
 
 # Adding MATLAB licenses to each node
 sudo podman exec cnode /bin/bash -c "mkdir -p /usr/local/MATLAB/licenses/"
