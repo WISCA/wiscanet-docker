@@ -81,7 +81,8 @@ RUN         dnf -y install \
                 libXtst \
                 alsa-lib \
                 nfs-utils \
-                yaml-cpp-devel
+                yaml-cpp-devel \
+                python3-scipy
 
 RUN         dnf clean all && rm -rf /var/cache/yum
 
