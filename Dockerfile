@@ -7,7 +7,7 @@ MAINTAINER  ASU Center for Wireless Information Systems and Computational Archit
 # Some system arguments
 ARG         UHD_TAG=v3.15.0.0
 ARG         WISCANET_TAG=master
-ARG         MAKEWIDTH=3
+ARG         MAKEWIDTH=12
 ARG			WISCA_ORG=jholtom
 
 EXPOSE 22
@@ -107,6 +107,7 @@ RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MAT
 # Begin building WISCANET
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/$WISCA_ORG/wiscanet_source /usr/local/src/wiscanet_source
+RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
 # If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
 #ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
@@ -131,6 +132,7 @@ RUN cp /usr/local/src/wiscanet_source/src/build/enode/enode /home/wisca/wdemo/ru
 RUN cp /usr/local/src/wiscanet_source/src/build/enode/uControl /home/wisca/wdemo/run/enode/bin/
 RUN mkdir -p /home/wisca/wdemo/run/enode/mat/lib
 RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/mat/* /home/wisca/wdemo/run/enode/mat/lib/
+RUN cp -rf /usr/local/src/wiscanet_source/src/build/enode/python/* /home/wisca/wdemo/run/enode/mat/lib/
 RUN chmod +x run/cnode/bin/cnode && chmod +x run/enode/bin/enode && chmod +x run/enode/bin/uControl
 
 USER root
