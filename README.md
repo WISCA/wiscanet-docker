@@ -63,3 +63,8 @@
   - https://github.com/EttusResearch/ettus-docker
 - Uses MATLAB (mathworks.com)
 - WISCANET 2017 paper
+
+## Legal
+Copyright 2020, WISCANET Contributors
+
+Refer to `wiscanet_source` for full licensing information
