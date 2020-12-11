@@ -39,7 +39,7 @@ echo "Launched with ID: ${CNODE_ID}"
 CNODE_IP=$(sudo podman inspect -f "{{.NetworkSettings.IPAddress}}" cnode)
 echo "IP Address of CNODE: ${CNODE_IP}"
 
-echo "Configuring WISCANET parameters"
+echo "Configuring WISCANet parameters"
 
 # Configuring CNODE iplist and node ymls for UMAC_sin demo
 sudo podman exec cnode /bin/bash -c "echo ${ENODE0_IP} > /home/wisca/wdemo/run/usr/cfg/iplist"

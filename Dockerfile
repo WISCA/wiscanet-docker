@@ -105,7 +105,7 @@ RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C
 # Remove broken libraries because MATLAB does some stupid interposing
 RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1.1
 
-# Begin building WISCANET
+# Begin building WISCANet
 WORKDIR      /
 RUN          git clone https://gitbliss.asu.edu/$WISCA_ORG/wiscanet_source /usr/local/src/wiscanet_source
 RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
