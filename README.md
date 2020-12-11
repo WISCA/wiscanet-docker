@@ -62,9 +62,9 @@
 - Uses UHD Dockerfile from Ettus Research
   - https://github.com/EttusResearch/ettus-docker
 - Uses MATLAB (mathworks.com)
-- WISCANET 2017 paper
+- H. Yu, H. Lee, R. M. Gutierrez, A. Herschfelt, and D. W. Bliss, “Wiscasdr  network,”  in MILCOM 2017-2017 IEEE Military Communications Conference (MILCOM).    IEEE, 2017, pp. 750–755
 
 ## Legal
-Copyright 2020, WISCANET Contributors
+Copyright 2020, WISCANet Contributors
 
 Refer to `wiscanet_source` for full licensing information
