@@ -1,6 +1,6 @@
 # wisca/wiscanet-docker:latest
 
-# Provides a base Fedora 32 image with latest UHD and WiscaNET installed
+# Provides a base Fedora 31 image with latest UHD and WiscaNET installed
 FROM        registry.fedoraproject.org/fedora:31
 MAINTAINER  ASU Center for Wireless Information Systems and Computational Architectures (WISCA)
 
@@ -8,7 +8,7 @@ MAINTAINER  ASU Center for Wireless Information Systems and Computational Archit
 ARG         UHD_TAG=v3.15.0.0
 ARG         WISCANET_TAG=master
 ARG         MAKEWIDTH=12
-ARG			WISCA_ORG=jholtom
+ARG			WISCA_ORG=WISCA
 
 EXPOSE 22
 EXPOSE 9000
@@ -102,15 +102,13 @@ ADD matlab-install/MATLAB /usr/local/MATLAB
 ENV PATH="/usr/local/MATLAB/bin:${PATH}"
 # Enable MEX
 RUN /usr/local/MATLAB/bin/mex -v -setup && /usr/local/MATLAB/bin/mex -v -setup C++
-# Remove broken libraries because MATLAB does some stupid interposing
+# Remove broken libraries because MATLAB does some silly interposing
 RUN rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1 && rm -rf /usr/local/MATLAB/bin/glnxa64/libcrypto.so.1.1
 
 # Begin building WISCANet
 WORKDIR      /
-RUN          git clone https://gitbliss.asu.edu/$WISCA_ORG/wiscanet_source /usr/local/src/wiscanet_source
+RUN          git clone https://github.com/$WISCA_ORG/wiscanet_source /usr/local/src/wiscanet_source
 RUN          cd /usr/local/src/wiscanet_source && git checkout $WISCANET_TAG
-# If not operating with access to gitbliss, comment prior two lines and uncomment the ADD statement
-#ADD wiscanet_source /usr/local/src/wiscanet_source
 RUN          mkdir -p /usr/local/src/wiscanet_source/src/build
 WORKDIR      /usr/local/src/wiscanet_source/src/build
 RUN          cmake ../ && make
@@ -122,10 +120,8 @@ RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER wisca
 ENV HOME /home/wisca
 WORKDIR /home/wisca
-RUN git clone https://gitbliss.asu.edu/$WISCA_ORG/wiscanet-deploy wdemo
+RUN git clone https://github.com/$WISCA_ORG/wiscanet-deploy wdemo
 RUN cd wdemo && git checkout $WISCANET_TAG
-# Again, if not operating with access to gitbliss, comment prior two lines and uncomment following ADD statement
-# ADD wiscanet-deploy /home/wisca/wdemo
 WORKDIR /home/wisca/wdemo/
 RUN mkdir -p /home/wisca/wdemo/data
 RUN cp /usr/local/src/wiscanet_source/src/build/cnode/cnode /home/wisca/wdemo/run/cnode/bin/
